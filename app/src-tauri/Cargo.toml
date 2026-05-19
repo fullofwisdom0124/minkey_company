@@ -1,0 +1,37 @@
+[package]
+name = "photo-selector"
+version = "0.1.0"
+description = "Photo selection app for SD cards"
+authors = ["minkey"]
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+name = "photo_selector_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "tiff", "webp", "bmp", "gif"] }
+walkdir = "2"
+kamadak-exif = "0.6"
+sha2 = "0.10"
+hex = "0.4"
+rayon = "1.10"
+thiserror = "1"
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4"] }
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true

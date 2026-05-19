@@ -1,4 +1,4 @@
-# Xcode
+# Xcode (legacy SwiftUI project)
 build/
 DerivedData/
 *.xcuserstate
@@ -9,10 +9,6 @@ xcuserdata/
 *.mode1v3
 *.mode2v3
 *.perspectivev3
-!default.pbxuser
-!default.mode1v3
-!default.mode2v3
-!default.perspectivev3
 
 # Swift Package Manager
 .swiftpm/
@@ -20,6 +16,19 @@ Packages/
 Package.pins
 Package.resolved
 .build/
+
+# Node / Vite (Tauri frontend)
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.local
+.eslintcache
+
+# Rust / Tauri backend
+app/src-tauri/target/
+app/src-tauri/gen/
+target/
 
 # macOS
 .DS_Store
@@ -33,3 +42,4 @@ Icon
 # IDE
 .vscode/
 .idea/
+*.swp
