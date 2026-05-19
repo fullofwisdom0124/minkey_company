@@ -56,7 +56,7 @@ export function PhotoDetail() {
   return (
     <div className="flex h-full flex-col">
       <div
-        className="relative flex-1 overflow-hidden bg-black"
+        className="relative flex-1 overflow-hidden bg-chrome-150"
         onWheel={onWheel}
         onDoubleClick={onDoubleClick}
         onMouseDown={onMouseDown}
@@ -76,7 +76,7 @@ export function PhotoDetail() {
             }}
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-chrome-400">
+          <div className="flex h-full items-center justify-center text-chrome-500">
             {photo ? "Loading…" : "No photo"}
           </div>
         )}
@@ -84,23 +84,23 @@ export function PhotoDetail() {
         {photo && (
           <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-3">
             <div className="flex items-center gap-2">
-              {state?.flag === "pick" && <Pill color="bg-green-500/85">Pick</Pill>}
-              {state?.flag === "reject" && <Pill color="bg-red-500/85">Reject</Pill>}
+              {state?.flag === "pick" && <Pill className="bg-flag-pick/95 text-white">Pick</Pill>}
+              {state?.flag === "reject" && <Pill className="bg-flag-reject/95 text-white">Reject</Pill>}
               {state?.rating ? (
-                <Pill color="bg-black/55">
-                  <span className="text-yellow-400">{"★".repeat(state.rating)}</span>
+                <Pill className="bg-white/85 text-flag-yellow shadow-sm ring-1 ring-black/5">
+                  {"★".repeat(state.rating)}
                 </Pill>
               ) : null}
             </div>
-            <Pill color="bg-black/55">
-              <span className="font-mono text-[11px] text-white/80">{photo.fileName}</span>
+            <Pill className="bg-white/85 text-chrome-900 shadow-sm ring-1 ring-black/5">
+              <span className="font-mono text-[11px]">{photo.fileName}</span>
             </Pill>
           </div>
         )}
 
         <button
           onClick={() => setViewMode("grid")}
-          className="absolute left-3 bottom-3 rounded bg-white/10 px-2 py-1 text-[11px] text-white/90 hover:bg-white/20"
+          className="absolute left-3 bottom-3 rounded-md bg-white/90 px-2 py-1 text-[11px] text-chrome-900 shadow-cell ring-1 ring-black/5 hover:bg-white"
           title="Back to grid (Esc)"
         >
           ← Grid
@@ -108,7 +108,7 @@ export function PhotoDetail() {
 
         <div
           className={clsx(
-            "absolute right-3 bottom-3 rounded bg-black/55 px-2 py-1 font-mono text-[10px] text-white/70",
+            "absolute right-3 bottom-3 rounded-md bg-white/85 px-2 py-1 font-mono text-[10px] text-chrome-700 ring-1 ring-black/5",
             zoom === 1 && "opacity-0"
           )}
         >
@@ -116,16 +116,16 @@ export function PhotoDetail() {
         </div>
       </div>
 
-      <div className="h-24 shrink-0 border-t border-white/5 bg-chrome-900">
+      <div className="h-24 shrink-0 border-t border-black/[0.06] bg-chrome-50">
         <Filmstrip />
       </div>
     </div>
   );
 }
 
-function Pill({ color, children }: { color: string; children: React.ReactNode }) {
+function Pill({ className, children }: { className: string; children: React.ReactNode }) {
   return (
-    <span className={`rounded-full px-2.5 py-1 text-[11px] text-white ${color}`}>
+    <span className={`rounded-full px-2.5 py-1 text-[11px] ${className}`}>
       {children}
     </span>
   );

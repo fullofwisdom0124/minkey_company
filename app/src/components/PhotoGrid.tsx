@@ -13,7 +13,7 @@ export function PhotoGrid() {
   const extendSelectionTo = useLibrary((s) => s.extendSelectionTo);
 
   const parentRef = useRef<HTMLDivElement | null>(null);
-  const gap = 4;
+  const gap = 6;
 
   const rows = useMemo(() => {
     const width = parentRef.current?.clientWidth ?? window.innerWidth - 280;
@@ -46,7 +46,7 @@ export function PhotoGrid() {
   return (
     <div
       ref={parentRef}
-      className="h-full w-full overflow-auto bg-chrome-900"
+      className="h-full w-full overflow-auto bg-chrome-100"
       tabIndex={0}
     >
       <div

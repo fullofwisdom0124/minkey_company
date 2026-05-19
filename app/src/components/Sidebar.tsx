@@ -18,8 +18,8 @@ function Row({ label, count, icon, active, onClick }: RowProps) {
       className={clsx(
         "group flex w-full items-center gap-2 rounded-md px-2 py-1 text-left text-[13px] transition",
         active
-          ? "bg-blue-500/90 text-white"
-          : "text-chrome-100 hover:bg-white/5"
+          ? "bg-accent text-white"
+          : "text-chrome-900 hover:bg-black/[0.05]"
       )}
     >
       <span className="flex h-4 w-4 items-center justify-center">{icon}</span>
@@ -27,7 +27,7 @@ function Row({ label, count, icon, active, onClick }: RowProps) {
       <span
         className={clsx(
           "tabular-nums text-[11px]",
-          active ? "text-white/80" : "text-chrome-400"
+          active ? "text-white/85" : "text-chrome-500"
         )}
       >
         {count}
@@ -38,7 +38,7 @@ function Row({ label, count, icon, active, onClick }: RowProps) {
 
 function SectionHeader({ label }: { label: string }) {
   return (
-    <div className="mt-4 px-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-chrome-400">
+    <div className="mt-4 px-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-chrome-500">
       {label}
     </div>
   );
@@ -63,28 +63,28 @@ export function Sidebar() {
       <Row
         label="All Photos"
         count={total}
-        icon={<span className="text-chrome-300">▦</span>}
+        icon={<span className="text-chrome-500">▦</span>}
         active={filter.kind === "all"}
         onClick={() => setFilter({ kind: "all" })}
       />
       <Row
         label="Picked"
         count={countBy(state, (st) => st.flag === "pick")}
-        icon={<FlagIcon color="#32d74b" />}
+        icon={<FlagIcon color="#34c759" />}
         active={filter.kind === "pick"}
         onClick={() => setFilter({ kind: "pick" })}
       />
       <Row
         label="Rejected"
         count={countBy(state, (st) => st.flag === "reject")}
-        icon={<FlagIcon color="#ff453a" slashed />}
+        icon={<FlagIcon color="#ff3b30" slashed />}
         active={filter.kind === "reject"}
         onClick={() => setFilter({ kind: "reject" })}
       />
       <Row
         label="Unflagged"
         count={countBy(state, (st) => st.flag === "unflagged")}
-        icon={<FlagIcon color="#8e8e93" outline />}
+        icon={<FlagIcon color="#86868b" outline />}
         active={filter.kind === "unflagged"}
         onClick={() => setFilter({ kind: "unflagged" })}
       />
@@ -97,7 +97,7 @@ export function Sidebar() {
             key={stars}
             label={"★".repeat(stars) + "☆".repeat(5 - stars)}
             count={countBy(state, (st) => st.rating >= stars)}
-            icon={<span className="text-yellow-400">★</span>}
+            icon={<span className="text-flag-yellow">★</span>}
             active={filterEquals(filter, f)}
             onClick={() => setFilter(f)}
           />
@@ -150,7 +150,7 @@ function FlagIcon({
 function ColorDot({ color }: { color: ColorLabel }) {
   return (
     <span
-      className="inline-block h-2.5 w-2.5 rounded-full"
+      className="inline-block h-2.5 w-2.5 rounded-full ring-1 ring-black/10"
       style={{ backgroundColor: COLOR_HEX[color] }}
     />
   );

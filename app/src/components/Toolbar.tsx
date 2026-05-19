@@ -48,14 +48,10 @@ export function Toolbar() {
   }
 
   return (
-    <header className="flex h-11 shrink-0 items-center gap-2 border-b border-white/5 bg-chrome-900/70 px-3 backdrop-blur">
-      <button
-        onClick={toggleSidebar}
-        className="rounded p-1.5 text-chrome-300 hover:bg-white/10"
-        title="Toggle sidebar"
-      >
+    <header className="flex h-12 shrink-0 items-center gap-2 border-b border-black/[0.06] bg-chrome-50/85 px-3 backdrop-blur">
+      <IconButton title="Toggle sidebar" onClick={toggleSidebar}>
         <SidebarIcon />
-      </button>
+      </IconButton>
 
       <Segmented
         value={viewMode}
@@ -68,20 +64,20 @@ export function Toolbar() {
 
       <button
         onClick={onOpen}
-        className="rounded bg-white/5 px-2.5 py-1 text-[12px] text-chrome-100 hover:bg-white/10"
+        className="rounded-md bg-white px-2.5 py-1 text-[12px] font-medium text-chrome-900 shadow-cell ring-1 ring-black/5 hover:bg-chrome-100"
       >
         Open Folder
       </button>
 
       {rootPath && (
-        <span className="truncate text-[11px] text-chrome-400" title={rootPath}>
+        <span className="ml-1 max-w-[280px] truncate text-[11px] text-chrome-500" title={rootPath}>
           {rootPath}
         </span>
       )}
 
       <div className="ml-auto flex items-center gap-3">
         {viewMode === "grid" && (
-          <div className="flex items-center gap-2 text-chrome-400">
+          <div className="flex items-center gap-2 text-chrome-500">
             <SmallPhotoIcon />
             <input
               type="range"
@@ -89,7 +85,7 @@ export function Toolbar() {
               max={360}
               value={thumbnailSize}
               onChange={(e) => setThumbnailSize(Number(e.target.value))}
-              className="h-1 w-32 accent-blue-500"
+              className="h-1 w-32"
             />
             <LargePhotoIcon />
           </div>
@@ -98,37 +94,52 @@ export function Toolbar() {
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value as SortKey)}
-          className="rounded bg-white/5 px-2 py-1 text-[12px] text-chrome-100 outline-none hover:bg-white/10"
+          className="rounded-md bg-white px-2 py-1 text-[12px] text-chrome-900 outline-none ring-1 ring-black/5 hover:bg-chrome-100"
         >
           <option value="captureDate">Capture Date</option>
           <option value="fileName">File Name</option>
           <option value="rating">Rating</option>
         </select>
 
-        <button
-          onClick={() => setSortAscending(!sortAscending)}
-          className="rounded p-1.5 text-chrome-300 hover:bg-white/10"
+        <IconButton
           title={sortAscending ? "Ascending" : "Descending"}
+          onClick={() => setSortAscending(!sortAscending)}
         >
-          {sortAscending ? "↑" : "↓"}
-        </button>
+          <span className="text-[12px] text-chrome-700">{sortAscending ? "↑" : "↓"}</span>
+        </IconButton>
 
         <button
           onClick={onExport}
-          className="rounded bg-blue-500 px-2.5 py-1 text-[12px] font-medium text-white hover:bg-blue-400"
+          className="rounded-md bg-accent px-2.5 py-1 text-[12px] font-medium text-white hover:bg-accent-hover"
         >
           Export
         </button>
 
-        <button
-          onClick={toggleInspector}
-          className="rounded p-1.5 text-chrome-300 hover:bg-white/10"
-          title="Toggle inspector"
-        >
+        <IconButton title="Toggle inspector" onClick={toggleInspector}>
           <InspectorIcon />
-        </button>
+        </IconButton>
       </div>
     </header>
+  );
+}
+
+function IconButton({
+  title,
+  onClick,
+  children,
+}: {
+  title: string;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      title={title}
+      onClick={onClick}
+      className="rounded-md p-1.5 text-chrome-700 hover:bg-black/[0.05] active:bg-black/[0.08]"
+    >
+      {children}
+    </button>
   );
 }
 
@@ -140,14 +151,16 @@ interface SegmentedProps<T extends string> {
 
 function Segmented<T extends string>({ value, options, onChange }: SegmentedProps<T>) {
   return (
-    <div className="flex rounded bg-white/5 p-0.5">
+    <div className="flex rounded-md bg-chrome-200/80 p-0.5 ring-1 ring-black/[0.04]">
       {options.map((opt) => (
         <button
           key={opt.value}
           onClick={() => onChange(opt.value)}
           className={clsx(
-            "rounded px-2 py-0.5 text-chrome-300 transition",
-            value === opt.value ? "bg-white/15 text-white" : "hover:bg-white/5"
+            "rounded px-2 py-0.5 transition",
+            value === opt.value
+              ? "bg-white text-chrome-900 shadow-sm"
+              : "text-chrome-600 hover:text-chrome-900"
           )}
         >
           {opt.label}

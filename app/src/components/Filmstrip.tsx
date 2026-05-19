@@ -52,8 +52,8 @@ const FilmCell = forwardRef<HTMLButtonElement, FilmCellProps>(function FilmCell(
       ref={ref}
       onClick={onClick}
       className={clsx(
-        "relative h-[72px] w-[100px] shrink-0 overflow-hidden rounded bg-chrome-800 transition",
-        active && "ring-2 ring-blue-500",
+        "relative h-[72px] w-[100px] shrink-0 overflow-hidden rounded bg-chrome-200 transition",
+        active ? "ring-2 ring-accent" : "ring-1 ring-black/[0.06]",
         flag === "reject" && "opacity-50"
       )}
     >
@@ -66,7 +66,7 @@ const FilmCell = forwardRef<HTMLButtonElement, FilmCellProps>(function FilmCell(
         />
       )}
       {flag === "pick" && (
-        <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-green-500" />
+        <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-flag-pick ring-1 ring-white" />
       )}
     </button>
   );

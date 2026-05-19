@@ -79,12 +79,12 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen w-screen flex-col bg-chrome-900 font-system text-white">
+    <div className="flex h-screen w-screen flex-col bg-chrome-100 font-system text-chrome-900">
       <Toolbar />
       <div className="flex flex-1 overflow-hidden">
         <div
           className={clsx(
-            "shrink-0 border-r border-white/5 bg-chrome-900/70 backdrop-blur transition-[width] duration-200",
+            "shrink-0 border-r border-black/[0.06] bg-chrome-50/80 backdrop-blur transition-[width] duration-200",
             showSidebar ? "w-56" : "w-0"
           )}
         >
@@ -96,20 +96,20 @@ export default function App() {
             {viewMode === "grid" ? <PhotoGrid /> : <PhotoDetail />}
 
             {isImporting && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-                <div className="rounded-lg bg-white/10 px-6 py-4 text-[13px]">
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/60 backdrop-blur-sm">
+                <div className="rounded-lg bg-white/95 px-6 py-4 text-[13px] text-chrome-900 shadow-sheet ring-1 ring-black/5">
                   Importing photos…
                 </div>
               </div>
             )}
 
             {!isImporting && !hasPhotos && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-chrome-400">
-                <div className="text-5xl">▦</div>
-                <div className="text-base text-white/80">No Photos Loaded</div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-chrome-500">
+                <PhotoStackIcon />
+                <div className="text-base text-chrome-900">No Photos Loaded</div>
                 <button
                   onClick={openFolder}
-                  className="mt-1 rounded bg-blue-500 px-3 py-1.5 text-[12px] text-white hover:bg-blue-400"
+                  className="mt-1 rounded-md bg-accent px-3 py-1.5 text-[12px] font-medium text-white hover:bg-accent-hover"
                 >
                   Open Folder…
                 </button>
@@ -120,7 +120,7 @@ export default function App() {
 
           <div
             className={clsx(
-              "shrink-0 border-l border-white/5 bg-chrome-900/70 backdrop-blur transition-[width] duration-200",
+              "shrink-0 border-l border-black/[0.06] bg-chrome-50/80 backdrop-blur transition-[width] duration-200",
               showInspector ? "w-72" : "w-0"
             )}
           >
@@ -129,5 +129,14 @@ export default function App() {
         </main>
       </div>
     </div>
+  );
+}
+
+function PhotoStackIcon() {
+  return (
+    <svg viewBox="0 0 64 64" className="h-16 w-16 text-chrome-300" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <rect x="10" y="14" width="36" height="28" rx="3" />
+      <rect x="18" y="22" width="36" height="28" rx="3" fill="#ffffff" />
+    </svg>
   );
 }
